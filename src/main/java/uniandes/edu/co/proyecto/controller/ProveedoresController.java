@@ -1,64 +1,80 @@
 package uniandes.edu.co.proyecto.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import uniandes.edu.co.proyecto.repository.ProveedorRepository;
 import uniandes.edu.co.proyecto.modelo.Proveedor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import java.util.List;
+import java.util.Optional;
 
-
-
-
-@Controller
+@RestController
+@RequestMapping("/proveedores")
 public class ProveedoresController {
 
     @Autowired
     private ProveedorRepository proveedorRepository;
 
-    @GetMapping("/proveedores")
-    public String obtenerTodosLosProveedores(Model model) {
-        model.addAttribute("proveedores", proveedorRepository.buscarTodosLosProveedores());
-        return "proveedores";
+    // Obtener todos los proveedores
+    @GetMapping
+    public ResponseEntity<List<Proveedor>> obtenerTodosLosProveedores() {
+        try {
+            List<Proveedor> proveedores = proveedorRepository.buscarTodosLosProveedores();
+            return ResponseEntity.ok(proveedores);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
-    @GetMapping("/proveedores/new")
-    public String proveedorForm(Model model) {
-        model.addAttribute("proveedor", new Proveedor());
-        return "proveedorNuevo";
-    }
-    
 
-    @PostMapping("proveedores/new/save")
-    public String crearProveedor(@ModelAttribute Proveedor proveedor, Model model) {
+    // Crear un nuevo proveedor
+    @PostMapping("/new")
+    public ResponseEntity<String> crearProveedor(@RequestBody Proveedor proveedor) {
         try {
             proveedorRepository.save(proveedor);
-            return "redirect:/proveedores";
+            return ResponseEntity.status(HttpStatus.CREATED).body("Proveedor creado con éxito");
         } catch (Exception e) {
-             model.addAttribute("error", "Error al crear el proovedor: " + e.getMessage());
-            return "error"; 
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al crear el proveedor: " + e.getMessage());
         }
     }
 
-    @GetMapping("/proveedores/{id}/edit")
-    public String proveedorEditarForm(@PathVariable("id") int id, Model model) {
-        Proveedor proveedor = proveedorRepository.findById(id).orElse(null);
-        if (proveedor != null) {
-            model.addAttribute("proveedor", proveedor);
-            return "proveedorEditar";
-        } else {
-            return "redirect:/proveedores";
+    // Obtener un proveedor por su ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Proveedor> obtenerProveedorPorId(@PathVariable int id) {
+        try {
+            Optional<Proveedor> proveedor = proveedorRepository.findById(id);
+            if (proveedor.isPresent()) {
+                return ResponseEntity.ok(proveedor.get());
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    @PostMapping("proveedores/{id}/edit/save")
-    public String proveedorEditarGuardar(@PathVariable("id") int id, @ModelAttribute Proveedor proveedor) {
+    // Editar un proveedor existente
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<String> actualizarProveedor(@PathVariable int id, @RequestBody Proveedor proveedor) {
+        try {
             proveedorRepository.actualizarProveedor(id, proveedor.getNombre(), proveedor.getDireccion(), proveedor.getNombreContacto(), proveedor.getTelefonoContacto());
-            return "redirect:/proveedores";
+            return ResponseEntity.ok("Proveedor actualizado con éxito");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al actualizar el proveedor: " + e.getMessage());
+        }
     }
 
-    
+    // Eliminar un proveedor por su ID
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<String> eliminarProveedor(@PathVariable int id) {
+        try {
+            proveedorRepository.deleteById(id);
+            return ResponseEntity.ok("Proveedor eliminado con éxito");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al eliminar el proveedor: " + e.getMessage());
+        }
+    }
 }

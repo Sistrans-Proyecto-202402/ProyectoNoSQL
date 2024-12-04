@@ -7,10 +7,8 @@ import uniandes.edu.co.proyecto.modelo.Bodega;
 import uniandes.edu.co.proyecto.modelo.Sucursal;
 import uniandes.edu.co.proyecto.repository.SucursalRepository;
 import uniandes.edu.co.proyecto.repository.SucursalRepositoryCustom;
-
 import org.bson.Document;
 import org.springframework.http.HttpStatus;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -49,7 +47,7 @@ public class SucursalesController {
 
 
     // Guardar una nueva sucursal
-    @PostMapping("/new/save")
+    @PostMapping("/new")
     public ResponseEntity<String> guardarSucursal(@RequestBody Sucursal sucursal) {
         try {
             sucursal.setBodegas(Collections.emptyList());
@@ -62,8 +60,8 @@ public class SucursalesController {
     }
 
     // Eliminar una bodega de una sucursal
-    @DeleteMapping("/bodegas/delete")
-    public ResponseEntity<String> eliminarBodega(@RequestParam("nombre") String nombreBodega) {
+    @DeleteMapping("/bodegas/delete/{nombreBodega}")
+    public ResponseEntity<String> eliminarBodega(@PathVariable String nombreBodega) {
         try {
             Integer sucursalId = sucursalRepositoryCustom.obtenerIdSucursalPorBodega(nombreBodega);
             if (sucursalId == null) {
@@ -78,8 +76,8 @@ public class SucursalesController {
     }
 
     // Obtener inventario de una sucursal
-    @GetMapping("/inventario")
-    public ResponseEntity<List<Document>> getInventario(@RequestParam("idSucursal") int idSucursal) {
+    @GetMapping("/inventario/{idSucursal}")
+    public ResponseEntity<List<Document>> getInventario(@PathVariable int idSucursal) {
         try {
             List<Document> inventario = sucursalRepositoryCustom.obtenerInventarioProductosPorSucursal(idSucursal);
             return ResponseEntity.ok(inventario);
@@ -89,10 +87,10 @@ public class SucursalesController {
     }
 
     // Crear una nueva bodega
-    @PostMapping("/bodegas/new/save")
-    public ResponseEntity<String> crearBodega(@RequestBody Bodega bodega, @RequestParam("id") int id) {
+    @PostMapping("/bodegas/new/{idSucursal}")
+    public ResponseEntity<String> crearBodega(@RequestBody Bodega bodega, @PathVariable int idSucursal) {
         try {
-            sucursalRepository.insertarBodega(id, bodega.getNombre(), bodega.getTamanio(), bodega.getVolumen(), bodega.getVolumenOcupado());
+            sucursalRepository.insertarBodega(idSucursal, bodega.getNombre(), bodega.getTamanio(), bodega.getVolumen(), bodega.getVolumenOcupado());
             return ResponseEntity.ok("Bodega creada con éxito");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

@@ -12,7 +12,7 @@ import uniandes.edu.co.proyecto.modelo.Categoria;
 
 public interface CategoriaRepository extends MongoRepository<Categoria, Integer> {
 
-    @Query(value="{}", fields="{ 'productos' : 0}")
+    @Query(value="{}")
     List<Categoria> buscarTodasLasCategorias();
 
     @Query("{ $insert: {_id: ?0, descripcion: ?1, nombre: ?2, caracteristica_almacenamiento: ?3, productos: [] } }")
