@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Sucursales</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Sucursales</h1>
+        
+        <!-- Botón para agregar nueva sucursal -->
+        <a th:href="@{/sucursales/new}" class="btn btn-primary">Agregar Nueva Sucursal</a>
+        
+        <!-- Tabla de Sucursales -->
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Tamaño de la instalación</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>Id de Ciudad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="sucursal : ${sucursales}">
+                    <td th:text="${sucursal.id}"></td>
+                    <td th:text="${sucursal.nombre}"></td>
+                    <td th:text="${sucursal.tamanioInstalacion}"></td>
+                    <td th:text="${sucursal.direccion}"></td>
+                    <td th:text="${sucursal.telefono}"></td>
+                    <td th:text="${sucursal.ciudadId}"></td>
+                    <td>
+                        <a th:href="@{/inventario(idSucursal=${sucursal.id})}" class="btn btn-info">Inventario</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- Botón para volver al inicio -->
+        <a href="/superandes" class="btn btn-secondary mt-3">Volver a la página principal</a>
+    </div>
+</body>
+</html>

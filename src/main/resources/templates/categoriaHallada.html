@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Categoría Encontrada</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Contenedor principal */
+        .container {
+            background-color: #ffffff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            text-align: center;
+        }
+
+        /* Título principal */
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Estilo de etiquetas y texto */
+        p {
+            font-size: 16px;
+            color: #555;
+            margin: 8px 0;
+        }
+
+        p strong {
+            color: #4CAF50; /* Color destacado */
+        }
+
+        /* Botón de enlace */
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #ffffff;
+            background-color: #4CAF50;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Detalles de la Categoría</h1>
+        <p><strong>Código:</strong> <span th:text="${categoria.codigo}"></span></p>
+        <p><strong>Nombre:</strong> <span th:text="${categoria.nombre}"></span></p>
+        <p><strong>Descripción:</strong> <span th:text="${categoria.descripcion}"></span></p>
+        <p><strong>Características de Almacenamiento:</strong> <span th:text="${categoria.caracteristicas_de_almacenamiento}"></span></p>
+        <a href="/superandes/categorias">Buscar otra categoría</a>
+    </div>
+</body>
+</html>

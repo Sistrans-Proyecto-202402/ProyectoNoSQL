@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Nueva Bodega</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Container and Heading */
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Form Styles */
+        form {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        form div {
+            margin-bottom: 15px;
+        }
+
+        /* Label Styles */
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        /* Input and Select Styles */
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        /* Button Styles */
+        button, a.btn {
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        button:hover, a.btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Secondary Button for Navigation */
+        a.btn-secondary {
+            background-color: #6c757d;
+            color: #fff;
+        }
+
+        a.btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Crear Nueva Bodega</h1>
+
+        <form th:action="@{'/sucursales/bodegas/new/save'}" method="post">
+
+            <!-- Select para elegir la sucursal -->
+            <div>
+                <label for="sucursal_id">Sucursal:</label>
+                <select id="sucursal_id" name="id" required>
+                    <option value="">Seleccione una sucursal</option>
+                    <th:block th:each="sucursal : ${sucursales}">
+                        <option th:value="${sucursal.id}" 
+                                th:text="${sucursal.nombre} + ' - ' + ${sucursal.ciudadId}">
+                        </option>
+                    </th:block>
+                </select>
+            </div>
+        
+            <!-- Campo para ingresar el nombre de la bodega -->
+            <div>
+                <label for="nombre">Nombre de la Bodega:</label>
+                <input type="text" id="nombre" name="nombre" required />
+            </div>
+        
+            <!-- Campo para ingresar el tamaño de la bodega -->
+            <div>
+                <label for="tamanio">Tamaño de la Bodega (m²):</label>
+                <input type="number" id="tamanio" name="tamanio" step="0.01" required />
+            </div>
+        
+            <!-- Campo para ingresar el volumen total de la bodega -->
+            <div>
+                <label for="volumen">Volumen Total (m³):</label>
+                <input type="number" id="volumen" name="volumen" step="0.01" required />
+            </div>
+        
+            <!-- Campo para ingresar el volumen ocupado de la bodega -->
+            <div>
+                <label for="volumen_ocupado">Volumen Ocupado (m³):</label>
+                <input type="number" id="volumen_ocupado" name="volumen_ocupado" step="0.01" required />
+            </div>
+        
+            <!-- Botón para enviar el formulario -->
+            <div>
+                <button type="submit">Guardar Bodega</button>
+            </div>
+        
+            <!-- Botón para regresar a la lista de bodegas -->
+            <div>
+                <a href="/superandes/sucursales/bodegas" class="btn btn-secondary">Regresar a Bodegas</a>
+            </div>
+        </form>
+        
+    </div>
+</body>
+</html>

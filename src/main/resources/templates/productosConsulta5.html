@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos por Reorden</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/producto.css}"/>
+</head>
+<body>
+    <div class="container">
+        <h1>Productos por Reorden</h1>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Código de Producto</th>
+                    <th>Nombre Producto</th>
+                    <th>Cantidad Actual</th>
+                    <th>Nivel Mínimo Reorden</th>
+                    <th>Nombre Bodega</th>
+                    <th>Nombre Sucursal</th>
+                    <th>Nombre Proveedor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="producto : ${productosConsulta}">
+                    <td th:text="${producto.codigoProducto}"></td>
+                    <td th:text="${producto.nombreProducto}"></td>
+                    <td th:text="${producto.cantidadActual}"></td>
+                    <td th:text="${producto.nivelMinimoReorden}"></td>
+                    <td th:text="${producto.nombreBodega}"></td>
+                    <td th:text="${producto.nombreSucursal}"></td>
+                    <td th:text="${producto.nombreProveedor}"></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <a href="/superandes/productos" class="btn">Volver a la lista de productos</a>
+    </div>
+</body>
+</html>

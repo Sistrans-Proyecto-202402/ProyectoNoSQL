@@ -7,8 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
-
-
 import uniandes.edu.co.proyecto.modelo.Bodega;
 import uniandes.edu.co.proyecto.modelo.Sucursal;
 import uniandes.edu.co.proyecto.repository.CiudadRepository;
@@ -100,14 +98,5 @@ public class SucursalesController {
         sucursalRepository.insertarBodega(id, bodega.getNombre(), bodega.getTamanio(), bodega.getVolumen(), bodega.getVolumenOcupado());
         return "redirect:/sucursales/bodegas";
         
-    }
-    
-
-
-  
-
-    
-
-    
-    
+    } 
 }

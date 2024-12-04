@@ -1,0 +1,30 @@
+/* Archivo: style.css */
+
+/* Estilo para los botones personalizados */
+.custom-button {
+    background-color: #007BFF; /* Color de fondo principal */
+    color: white; /* Color del texto */
+    padding: 10px 20px; /* Espaciado interno del botón */
+    border-radius: 5px; /* Bordes redondeados */
+    text-decoration: none; /* Quitar subrayado */
+    transition: background-color 0.3s ease; /* Transición suave para cambios de color */
+    display: inline-block;
+    margin: 10px; /* Espacio entre botones */
+}
+
+/* Estilo al pasar el ratón por encima */
+.custom-button:hover {
+    background-color: #0056b3; /* Color de fondo en hover */
+    color: #f1f1f1; /* Color del texto en hover */
+}
+
+/* Estilo para centrar el contenido */
+.container {
+    text-align: center;
+}
+
+/* Estilo para la imagen */
+img {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+}

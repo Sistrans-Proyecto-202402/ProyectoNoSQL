@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Seleccionar Bodega</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 1.8em;
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+        .btn-primary, .btn-secondary {
+            font-size: 1.1em;
+            padding: 10px 20px;
+            margin-top: 20px;
+            margin-right: 10px;
+        }
+    </style>
+    <script>
+        function setFormAction(action) {
+            document.getElementById("consultaForm").action = action;
+            document.getElementById("consultaForm").submit();
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Seleccionar Bodega</h1>
+
+        <form id="consultaForm" method="get">
+            <div class="form-group">
+                <label for="bodegaSelect">Seleccione una bodega:</label>
+                <select id="bodegaSelect" name="bodega" class="form-control" required>
+                    <option value="">Seleccione una bodega</option>
+                    <!-- Opciones de bodegas generadas dinámicamente con Thymeleaf -->
+                    <option th:each="bodega : ${bodegas}" th:value="${bodega.nombre}" th:text="${bodega.nombre}"></option>
+                </select>
+            </div>
+            <!-- Botones para seleccionar el nivel de aislamiento -->
+            <button type="button" class="btn btn-primary" onclick="setFormAction('/superandes/consulta_opcion_1')">Consultar Opción 1 (Serializable)</button>
+            <button type="button" class="btn btn-secondary" onclick="setFormAction('/superandes/consulta_opcion_2')">Consultar Opción 2 (Read Committed)</button>
+        </form>
+        <div>
+            <a href="/superandes/ingreso_producto" class="btn btn-secondary">Regresar a Ingreso</a>
+        </div>
+    </div>
+</body>
+</html>

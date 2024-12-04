@@ -1,0 +1,156 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Órdenes de Compra</title>
+    <style>
+     
+     body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #eef2f3;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden; /* Evita que el contenido se desborde */
+}
+
+h1 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.button-link {
+    padding: 12px 25px;
+    background-color: #27ae60;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.button-link:hover {
+    background-color: #1e8449;
+    transform: translateY(-2px);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+    table-layout: fixed; /* Garantiza que las columnas tengan ancho fijo */
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+    word-wrap: break-word; /* Ajusta texto largo dentro de las celdas */
+}
+
+th {
+    background-color: #2ecc71;
+    color: white;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+td {
+    color: #34495e;
+    overflow: hidden; /* Evita desbordes de contenido */
+    text-overflow: ellipsis; /* Muestra "..." si el texto es muy largo */
+}
+
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Lista de Órdenes de Compra</h1>
+        
+        <div class="button-container">
+            <a href="/superandes/ordenesdecompra/new" class="button-link">Crear Nueva Orden de Compra</a>
+            <a href="/superandes" class="button-link">Regresar al Menú Principal</a>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Orden</th>
+                    <th>Fecha de Creación</th>
+                    <th>Fecha Estimada de Entrega</th>
+                    <th>Fecha de Entrega</th>
+                    <th>Estado</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Fecha Vencimiento</th>
+                    <th>Producto</th>
+                    <th>Bodega</th>
+                    <th>Sucursal</th>
+                    <th>Proveedor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="orden : ${ordenesDeCompra}">
+                    <td th:text="${orden.id}"></td>
+                    <td th:text="${orden.fechaCreacion}"></td>
+                    <td th:text="${orden.fechaEstimada}"></td>
+                    <td th:text="${orden.fechaEntrega}"></td>
+                    <td th:text="${orden.estado}"></td>
+                    <td th:text="${orden.detalleProducto.cantidad}"></td>
+                    <td th:text="${orden.detalleProducto.precio}"></td>
+                    <td th:text="${orden.detalleProducto.fechaVencimiento}"></td>
+                    <td th:text="${orden.detalleProducto.producto}"></td>
+                    <td th:text="${orden.bodega}"></td>
+                    <td th:text="${orden.sucursal}"></td>
+                    <td th:text="${orden.proveedor}"></td>
+                </tr>
+            </tbody>                       
+        </table>
+    
+        <div style="margin-top: 30px;">
+            <h2>Buscar Orden de Compra</h2>
+            <form th:action="@{/ordenesdecompra/buscar}" method="get">
+                <div class="form-group">
+                    <label for="id">ID Orden:</label>
+                    <input type="number" id="id" name="id" class="form-control" placeholder="Ingrese el ID de la Orden" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>

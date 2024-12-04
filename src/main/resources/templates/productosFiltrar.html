@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Filtrar Productos</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/producto.css}"/>
+</head>
+<body>
+    <div class="container">
+        <h1>Productos Filtrados</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio Unitario</th>
+                    <th>Presentación</th>
+                    <th>Cantidad en Presentación</th>
+                    <th>Unidad de Medida</th>
+                    <th>Volumen de Empaque</th>
+                    <th>Peso de Empaque</th>
+                    <th>Código de Barras</th>
+                    <th>Categoría</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="producto : ${productosFiltrados}">
+                    <td th:text="${producto.nombre}"></td>
+                    <td th:text="${producto.precio_unitario}"></td>
+                    <td th:text="${producto.presentacion}"></td>
+                    <td th:text="${producto.cantidad_en_presentacion}"></td>
+                    <td th:text="${producto.unidad_de_medida}"></td>
+                    <td th:text="${producto.volumen_empaque}"></td>
+                    <td th:text="${producto.peso_empaque}"></td>
+                    <td th:text="${producto.codigo_barras}"></td>
+                    <td th:text="${producto.categoria.codigo}"></td> <!-- Asumiendo que Categoria tiene un campo 'nombre' -->
+                </tr>
+            </tbody>
+        </table>
+        <a href="/superandes/productos" class="btn">Volver a la lista de productos</a>
+    </div>
+</body>
+</html>

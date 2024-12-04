@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Productos</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/producto.css}"/>
+</head>
+<body>
+    <div class="container">
+        <a href="/superandes/" class="btn">Página Principal</a> 
+        <h1>Lista de Productos</h1>
+        <a href="/superandes/productos/new" class="btn">Crear Nuevo Producto</a>
+        
+        <!-- Tabla principal de productos -->
+        <div class="table-container">
+            <h2>Todos los Productos</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Precio Unitario</th>
+                        <th>Presentación</th>
+                        <th>Cantidad en Presentación</th>
+                        <th>Unidad de Medida</th>
+                        <th>Volumen de Empaque</th>
+                        <th>Peso de Empaque</th>
+                        <th>Código de Barras</th>
+                    </tr>
+                </thead>
+                <tbody th:if="${productos != null and productos.size() > 0}">
+                    <tr th:each="producto : ${productos}">
+                        <td th:text="${producto.nombre}">Nombre</td>
+                        <td th:text="${producto.precio_unitario}">Precio Unitario</td>
+                        <td th:text="${producto.presentacion}">Presentación</td>
+                        <td th:text="${producto.cantidad_en_presentacion}">Cantidad</td>
+                        <td th:text="${producto.unidad_medida}">Unidad de Medida</td>
+                        <td th:text="${producto.volumen_empaque}">Volumen</td>
+                        <td th:text="${producto.peso_empaque}">Peso</td>
+                        <td th:text="${producto.codigo_barras}">Código de Barras</td>
+                    </tr>
+                </tbody>
+                
+            </table>
+        </div>
+
+        <!-- Formulario para Clasificar Productos -->
+        <div class="form-container">
+            <h2>Clasificar Productos</h2>
+            <form th:action="@{/clasificarProductos}" method="get">
+                <div class="form-group">
+                    <label for="idSucursal">ID Sucursal:</label>
+                    <input type="number" id="idSucursal" name="idSucursal" required>
+                </div>
+                <div class="form-group">
+                    <label for="idCategoria">ID Categoría:</label>
+                    <input type="number" id="idCategoria" name="idCategoria" required>
+                </div>
+                <div class="form-group">
+                    <label for="rangoPrecioMin">Rango Precio Mínimo:</label>
+                    <input type="number" id="rangoPrecioMin" name="rangoPrecioMin" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="rangoPrecioMax">Rango Precio Máximo:</label>
+                    <input type="number" id="rangoPrecioMax" name="rangoPrecioMax" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="fechaVencimiento">Fecha de Vencimiento (Antes de):</label>
+                    <input type="date" id="fechaVencimiento" name="fechaVencimiento" required>
+                </div>
+                <button type="submit" class="btn">Clasificar</button>
+            </form>
+        </div>
+
+        <!-- Tabla para mostrar los productos clasificados -->
+        <div class="table-container">
+            <h2>Resultados Clasificados</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Precio Unitario</th>
+                        <th>Presentación</th>
+                        <th>Cantidad en Presentación</th>
+                        <th>Unidad de Medida</th>
+                        <th>Volumen de Empaque</th>
+                        <th>Peso de Empaque</th>
+                        <th>Código de Barras</th>
+                    </tr>
+                </thead>
+                <tbody th:if="${productosClasificados != null}">
+                    <tr th:each="producto : ${productosClasificados}">
+                        <td th:text="${producto.nombre}">Nombre</td>
+                        <td th:text="${producto.precio_unitario}">Precio</td>
+                        <td th:text="${producto.presentacion}">Presentación</td>
+                        <td th:text="${producto.cantidad_en_presentacion}">Cantidad</td>
+                        <td th:text="${producto.unidad_medida}">Unidad</td>
+                        <td th:text="${producto.volumen_empaque}">Volumen</td>
+                        <td th:text="${producto.peso_empaque}">Peso</td>
+                        <td th:text="${producto.codigo_barras}">Código</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

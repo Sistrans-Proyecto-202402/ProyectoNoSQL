@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Orden de Compra</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        .form-group label {
+            font-weight: bold; /* Hace que las etiquetas sean más notables */
+        }
+        .form-control[readonly] {
+            background-color: #e9ecef; /* Color de fondo para campos de solo lectura para mejor contraste */
+            cursor: not-allowed; /* Indica que el campo es de solo lectura */
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Sombra suave para el contenedor */
+        }
+        body {
+            background-color: #f8f9fa; /* Color de fondo más suave para el cuerpo para menos contraste */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Crear Nueva Orden de Compra</h1>
+        <form th:action="@{/ordenesdecompra/new/save}" th:object="${orden}" method="post">
+            <div class="form-group">
+                <label for="id">ID:</label>
+                <input type="text" id="id" name="id" class="form-control" th:value="${orden.id}" required>
+            <div class="form-group">
+                <label for="fechaCreacion">Fecha de Creación:</label>
+                <input type="date" id="fechaCreacion" name="fecha_creacion" class="form-control" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="fechaEstimada">Fecha Estimada de Entrega:</label>
+                <input type="date" id="fechaEstimada" name="fecha_estimada" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="fechaVencimiento">Fecha de Vencimiento:</label>
+                <input type="date" id="fechaVencimiento" name="fecha_vencimiento" class="form-control" required>
+            </div>            
+            <div class="form-group">
+                <label for="estado">Estado:</label>
+                <select id="estado" name="estado" class="form-control">
+                    <option value="VIGENTE">Vigente</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="cantidad">Cantidad:</label>
+                <input type="number" id="cantidad" name="cantidad" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="precio">Precio:</label>
+                <input type="number" id="precio" name="precio" step="0.01" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="productos">Producto:</label>
+                <select id="productos" name="producto" class="form-control" required>
+                    <option th:each="producto : ${productos}" 
+                            th:value="${producto.codigo_barras}" 
+                            th:text="${producto.nombre}"></option>
+                </select>
+            </div>            
+            <div class="form-group">
+                <label for="bodegas">Bodega:</label>
+                <select id="bodegas" name="bodega" class="form-control">
+                    <option th:each="bodega : ${bodegas}" th:value="${bodega.nombre}" th:text="${bodega.nombre}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="sucursal">Sucursal:</label>
+                <select id="sucursal" name="sucursal" class="form-control" required>
+                    <option th:each="sucursal : ${sucursales}" th:value="${sucursal.id}" th:text="${sucursal.nombre}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="proveedores">Proveedor:</label>
+                <select id="proveedores" name="proveedor" class="form-control" required>
+                    <option th:each="proveedor : ${proveedores}" th:value="${proveedor.id}" th:text="${proveedor.nombre}"></option>
+                </select>
+            </div>            
+            
+            <button type="submit" class="btn btn-primary">Guardar Orden</button>
+            <a href="/superandes/ordenesdecompra" class="btn btn-secondary">Cancelar</a> <!-- Enlace de cancelación -->
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle del Producto</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/producto.css}"/>
+</head>
+<body>
+    <div class="container">
+        <h1>Detalle del Producto</h1>
+        <table class="table">
+            <tr>
+                <th>Nombre</th>
+                <td th:text="${productoBuscado.nombre}"></td>
+            </tr>
+            <tr>
+                <th>Precio Unitario</th>
+                <td th:text="${productoBuscado.precio_unitario}"></td>
+            </tr>
+            <tr>
+                <th>Presentación</th>
+                <td th:text="${productoBuscado.presentacion}"></td>
+            </tr>
+            <tr>
+                <th>Cantidad en Presentación</th>
+                <td th:text="${productoBuscado.cantidad_en_presentacion}"></td>
+            </tr>
+            <tr>
+                <th>Unidad de Medida</th>
+                <td th:text="${productoBuscado.unidad_de_medida}"></td>
+            </tr>
+            <tr>
+                <th>Volumen Empaque</th>
+                <td th:text="${productoBuscado.volumen_empaque}"></td>
+            </tr>
+            <tr>
+                <th>Peso Empaque</th>
+                <td th:text="${productoBuscado.peso_empaque}"></td>
+            </tr>
+            <tr>
+                <th>Código de Barras</th>
+                <td th:text="${productoBuscado.codigo_barras}"></td>
+            </tr>
+            <tr>
+                <th>Categoría</th>
+                <td th:text="${productoBuscado.categoria.nombre}"></td>
+            </tr>
+        </table>
+        <a href="/superandes/productos" class="btn">Volver a la Lista de Productos</a>
+    </div>
+</body>
+</html>

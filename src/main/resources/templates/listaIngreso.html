@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Ingresos de Producto</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2em;
+            color: #343a40;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .table {
+            margin-top: 20px;
+        }
+        .table thead {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        .form-group {
+            max-width: 300px;
+            margin: 0 auto 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Título -->
+        <h1>Lista de Ingresos de Producto</h1>
+
+        <div>
+            <a href="/superandes/seleccionar_bodega" class="btn btn-secondary">Regresar a Ingreso</a>
+        </div>
+       
+        <!-- Tabla para mostrar los registros -->
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Orden de Compra</th>
+                    <th>Fecha de Ingreso</th>
+                    <th>Bodega</th>
+                    <th>Ciudad</th>
+                    <th>Dirección</th>
+                </tr>
+            </thead>
+            <tbody id="tablaIngresos" th:if="${ingresos}">
+                <!-- Iterar sobre cada ingreso -->
+                <tr th:each="ingreso : ${ingresos}">
+                    <td th:text="${ingreso.id}">ID</td>
+                    <td th:text="${ingreso.id_orden.id_orden}">ID Orden</td>
+                    <td th:text="${ingreso.fecha_ingreso}">Fecha de Ingreso</td>
+                    <td th:text="${ingreso.id_orden.bodega.nombre}">Bodega</td>
+                    <td th:text="${ingreso.id_orden.bodega.sucursal.pk.ciudad.nombre}">Ciudad</td>
+                    <td th:text="${ingreso.id_orden.bodega.sucursal.pk.direccion}">Dirección</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

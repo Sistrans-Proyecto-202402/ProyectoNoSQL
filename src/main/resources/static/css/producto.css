@@ -1,0 +1,217 @@
+/* Archivo: style.css */
+
+/* Estilo general */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Encabezados */
+h1, h2 {
+    color: #333;
+    margin: 20px 0;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+
+h2 {
+    font-size: 28px;
+    color: #444;
+}
+
+/* Estilo de los botones */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    margin: 10px;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    background-color: #003f88;
+    transform: translateY(1px);
+}
+
+/* Estilo de los formularios */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+form input, form select, form button {
+    width: 80%;
+    max-width: 400px;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+}
+
+form input:focus, form select:focus {
+    outline: none;
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+form button {
+    background-color: #28a745;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+}
+
+form button:hover {
+    background-color: #218838;
+}
+
+/* Estilo de las tablas */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.table th, .table td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    color: #333;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table tr:hover {
+    background-color: #f1f3f5;
+}
+
+.table td {
+    color: #555;
+}
+
+/* Mensajes de error */
+.error {
+    color: red;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+/* Tarjetas de información */
+.card {
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.card h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #444;
+}
+
+/* Pie de página */
+footer {
+    text-align: center;
+    padding: 15px 0;
+    background-color: #007BFF;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Links dentro del pie de página */
+footer a {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+/* Ajustes adicionales para hacer todo más agradable visualmente */
+.container, .table, .card {
+    margin: 0 auto;
+    text-align: center;
+}
+
+input::placeholder {
+    text-align: center;
+    color: #888;
+}
+
+h1, h2, .btn, form input, form select, form button {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+/* Contenedor de la tabla */
+.table-container {
+    overflow-x: auto; /* Permite desplazamiento horizontal si es necesario */
+    padding: 0;
+    margin: 0;
+}
+
+/* Tabla sin márgenes ni rellenos */
+.table {
+    width: 100%;
+    border-collapse: collapse; /* Quita espacios entre las celdas */
+    table-layout: auto; /* Ajusta ancho de columnas automáticamente */
+}
+
+.table th, .table td {
+    padding: 8px; /* Espacio mínimo para contenido */
+    font-size: 14px;
+    text-align: center;
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+}
+
+/* Botones ajustados */
+.btn {
+    padding: 6px 10px;
+    font-size: 12px;
+    margin: 0;
+}

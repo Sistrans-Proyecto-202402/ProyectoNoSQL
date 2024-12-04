@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Consulta de Bodegas</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <style>
+        /* Agrega estilos aquí */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Consulta de Ocupación de Bodegas</h1>
+        <form id="consultaForm" action="/superandes/bodegas/consulta/results" method="get">
+            <div>
+                <label for="productos">Códigos de Barras (separados por comas):</label>
+                <input type="text" id="productos" name="productos" required>
+            </div>
+            <div>
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" name="direccion" required>
+            </div>
+            <div>
+                <label for="codigoCiudad">Código de Ciudad:</label>
+                <input type="number" id="codigoCiudad" name="codigoCiudad" required>
+            </div>
+            <button type="submit" class="btn">Consultar</button>
+        </form>
+        <div class="actions">
+            <a href="/superandes/" class="btn">Regresar al Menú Principal</a>
+        </div>
+    </div>
+</body>
+</html>

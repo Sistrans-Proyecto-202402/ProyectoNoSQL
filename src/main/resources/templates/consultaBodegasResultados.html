@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados de Consulta de Bodegas</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Resultados de Consulta de Ocupación de Bodegas</h1>
+        
+        <div th:if="${porcentajes.isEmpty()}">
+            <p>No se encontraron resultados para los criterios de búsqueda.</p>
+        </div>
+        
+        <div th:if="${!porcentajes.isEmpty()}">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre de Bodega</th>
+                        <th>Porcentaje de Ocupación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="porcentaje : ${porcentajes}">
+                        <td th:text="${porcentaje.bodega}">Nombre Bodega</td>
+                        <td th:text="${porcentaje.valor}">Porcentaje</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="actions">
+            <a href="/superandes/bodegas/consulta" class="btn">Realizar otra consulta</a>
+            <a href="/superandes/" class="btn">Volver al Menú Principal</a>
+        </div>
+    </div>
+</body>
+</html>

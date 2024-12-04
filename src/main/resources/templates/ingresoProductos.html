@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ingreso de Producto</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        /* Fondo de la página */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Contenedor principal */
+        .container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            text-align: center;
+        }
+
+        /* Título */
+        h1 {
+            color: #333;
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        /* Botones */
+        .btn-primary, .btn-success {
+            font-size: 1.1em;
+            font-weight: bold;
+            padding: 12px 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* Espaciado entre botones */
+        .my-4 a, .my-3 a {
+            display: inline-block;
+            width: 80%;
+            margin-top: 10px;
+            text-decoration: none;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Encabezado -->
+        <h1>Ingreso de Producto</h1>
+
+        <!-- Botones de consulta -->
+        <div class="my-4">
+            <a href="seleccionar_bodega" class="btn btn-primary">Consultar Documentos</a>
+        </div>
+
+        <!-- Botón para crear nuevo registro -->
+        <div class="my-3">
+            <a href="/superandes/ordenes_de_compra" class="btn btn-success">Crear nuevo registro de ingreso</a>
+        </div>
+
+        <div>
+            <a href="/superandes" class="btn btn-secondary">Regresar a Inicio</a>
+        </div>
+    </div>
+</body>
+</html>
+

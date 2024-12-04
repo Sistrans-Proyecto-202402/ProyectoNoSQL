@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Orden Encontrada</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #eef2f3;
+            color: #333;
+        }
+
+        .container {
+            width: 60%;
+            margin: 40px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .details {
+            margin-top: 20px;
+        }
+
+        .details p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button-link {
+            padding: 12px 20px;
+            background-color: #27ae60;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .button-link:hover {
+            background-color: #1e8449;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Detalles de la Orden de Compra</h1>
+        <div class="details">
+            <p><strong>ID Orden:</strong> <span th:text="${orden.id}"></span></p>
+            <p><strong>Fecha de Creación:</strong> <span th:text="${orden.fechaCreacion}"></span></p>
+            <p><strong>Fecha Estimada de Entrega:</strong> <span th:text="${orden.fechaEstimada}"></span></p>
+            <p><strong>Fecha de Entrega:</strong> <span th:text="${orden.fechaEntrega}"></span></p>
+            <p><strong>Estado:</strong> <span th:text="${orden.estado}"></span></p>
+            <p><strong>Cantidad:</strong> <span th:text="${orden.detalleProducto.cantidad}"></span></p>
+            <p><strong>Precio:</strong> <span th:text="${orden.detalleProducto.precio}"></span></p>
+            <p><strong>Fecha de Vencimiento:</strong> <span th:text="${orden.detalleProducto.fechaVencimiento}"></span></p>
+            <p><strong>Producto:</strong> <span th:text="${orden.detalleProducto.producto}"></span></p>
+            <p><strong>Bodega:</strong> <span th:text="${orden.bodega}"></span></p>
+            <p><strong>Sucursal:</strong> <span th:text="${orden.sucursal}"></span></p>
+            <p><strong>Proveedor:</strong> <span th:text="${orden.proveedor}"></span></p>
+        </div>
+
+        <div class="button-container">
+            <a href="/superandes/ordenesdecompra" class="button-link">Volver a la Lista</a>
+        </div>
+    </div>
+</body>
+</html>

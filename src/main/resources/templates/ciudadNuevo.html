@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Nueva Ciudad</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+    <div class="container">
+        <h1>Agregar Nueva Ciudad</h1>
+        
+        <!-- Formulario para Crear Ciudad -->
+        <form th:action="@{/ciudades/new/save}" method="post">
+            <div class="form-group">
+                <label for="codigo_ciudad">Código de Ciudad</label>
+                <input type="text" id="codigo_ciudad" name="codigo" class="form-control" placeholder="Ingrese el código de la ciudad" required>
+            </div>
+            <div class="form-group">
+                <label for="nombre_ciudad">Nombre de Ciudad</label>
+                <input type="text" id="nombre_ciudad" name="nombre" class="form-control" placeholder="Ingrese el nombre de la ciudad" required>
+            </div>
+            <div class="form-group">
+                <label for="departamento">Departamento</label>
+                <select id="departamento" name="departamento" class="form-control" required>
+                    <option value="" disabled selected>Seleccione el departamento</option>
+                    <option value="Amazonas">Amazonas</option>
+                    <option value="Antioquia">Antioquia</option>
+                    <option value="Arauca">Arauca</option>
+                    <option value="Atlantico">Atlántico</option>
+                    <option value="Bolivar">Bolívar</option>
+                    <option value="Boyaca">Boyacá</option>
+                    <option value="Caldas">Caldas</option>
+                    <option value="Caqueta">Caquetá</option>
+                    <option value="Casanare">Casanare</option>
+                    <option value="Cauca">Cauca</option>
+                    <option value="Cesar">Cesar</option>
+                    <option value="Choco">Chocó</option>
+                    <option value="Cordoba">Córdoba</option>
+                    <option value="Cundinamarca">Cundinamarca</option>
+                    <option value="Guainia">Guainía</option>
+                    <option value="Guaviare">Guaviare</option>
+                    <option value="Huila">Huila</option>
+                    <option value="La Guajira">La Guajira</option>
+                    <option value="Magdalena">Magdalena</option>
+                    <option value="Meta">Meta</option>
+                    <option value="Nariño">Nariño</option>
+                    <option value="Norte de Santander">Norte de Santander</option>
+                    <option value="Putumayo">Putumayo</option>
+                    <option value="Quindio">Quindío</option>
+                    <option value="Risaralda">Risaralda</option>
+                    <option value="San Andres y Providencia">San Andrés y Providencia</option>
+                    <option value="Santander">Santander</option>
+                    <option value="Sucre">Sucre</option>
+                    <option value="Tolima">Tolima</option>
+                    <option value="Valle del Cauca">Valle del Cauca</option>
+                    <option value="Vaupes">Vaupés</option>
+                    <option value="Vichada">Vichada</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a href="/superandes/ciudades" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>

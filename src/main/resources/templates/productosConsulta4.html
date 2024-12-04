@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sucursales del Producto</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/producto.css}"/>
+</head>
+<body>
+    <div class="container">
+        <h1>Sucursales del Producto</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre Sucursal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="sucursal : ${sucursales}">
+                    <td th:text="${sucursal}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/superandes/productos" class="btn">Volver a la lista de productos</a>
+    </div>
+</body>
+</html>
