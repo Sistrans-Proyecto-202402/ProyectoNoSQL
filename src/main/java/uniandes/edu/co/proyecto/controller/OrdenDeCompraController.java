@@ -47,7 +47,7 @@ public class OrdenDeCompraController {
         model.addAttribute("orden", new OrdenDeCompra());
         model.addAttribute("productos", categoriaRepository.obtenerProductosDeTodasLasCategorias());
         model.addAttribute("sucursales", sucursalRepository.findAll());
-        model.addAttribute("bodegas", sucursalRepositoryCustom.obtenerBodegasSinAlmacenamientos());
+        model.addAttribute("bodegas", sucursalRepositoryCustom.obtenerBodegas());
         model.addAttribute("proveedores", proveedorRepository.findAll());
         return "ordenNueva";
     }

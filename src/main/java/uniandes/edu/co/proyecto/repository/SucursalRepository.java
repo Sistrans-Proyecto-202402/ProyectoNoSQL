@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface SucursalRepository extends MongoRepository<Sucursal, Integer> {
 
 
-    @Query(value="{}", fields="{ 'bodegas' : 0}")
+    @Query(value="{}", fields = "{ 'bodegas.almacenamientos': 0 }")
     List<Sucursal> buscarTodasLasSucursales();
 
     @Query("{ $insert: { _id: ?0, nombre: ?1, tamanio_instalacion: ?2, direccion: ?3, telefono: ?4, ciudad_id: ?5, bodegas: [] } }")

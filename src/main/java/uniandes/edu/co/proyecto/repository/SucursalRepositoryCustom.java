@@ -56,7 +56,7 @@ public class SucursalRepositoryCustom {
      *
      * @return Lista de productos de todas las categorías.
      */
-    public List<Document> obtenerBodegasSinAlmacenamientos() {
+    public List<Document> obtenerBodegas() {
         List<Document> pipeline = List.of(
             // Descomponer el array "bodegas" en documentos individuales
             new Document("$unwind", "$bodegas"),
@@ -66,7 +66,6 @@ public class SucursalRepositoryCustom {
             
             // Proyectar los campos deseados y excluir "almacenamientos"
             new Document("$project", new Document()
-                .append("almacenamientos", 0) // Excluir el campo "almacenamientos"
                 .append("_id", 0) // Si no necesitas el ID original, puedes excluirlo también
             )
         );

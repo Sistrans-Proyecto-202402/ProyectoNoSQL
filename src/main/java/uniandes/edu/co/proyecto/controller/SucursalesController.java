@@ -1,20 +1,21 @@
 package uniandes.edu.co.proyecto.controller;
 
-import java.util.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import uniandes.edu.co.proyecto.modelo.Bodega;
 import uniandes.edu.co.proyecto.modelo.Sucursal;
-import uniandes.edu.co.proyecto.repository.CiudadRepository;
 import uniandes.edu.co.proyecto.repository.SucursalRepository;
-import org.springframework.web.bind.annotation.PostMapping;
 import uniandes.edu.co.proyecto.repository.SucursalRepositoryCustom;
 
-@Controller
+import org.bson.Document;
+import org.springframework.http.HttpStatus;
+
+import java.util.Collections;
+import java.util.List;
+
+@RestController
+@RequestMapping("/sucursales")
 public class SucursalesController {
 
     @Autowired
@@ -23,80 +24,79 @@ public class SucursalesController {
     @Autowired
     private SucursalRepositoryCustom sucursalRepositoryCustom;
 
-    
-    @Autowired
-    private CiudadRepository ciudadRepository;  
-
-    @GetMapping("/sucursales")
-    public String getSucursales(Model model) {
-        model.addAttribute("sucursales", sucursalRepository.buscarTodasLasSucursales());
-        return "sucursales";
-    }
-
-    @GetMapping("/sucursales/bodegas")
-    public String getBodegas(Model model) {
-        model.addAttribute("bodegas", sucursalRepositoryCustom.obtenerBodegasSinAlmacenamientos());
-        return "bodegas";
-    }
-
-
-    @GetMapping("/sucursales/new")
-    public String sucursalForm(Model model) {
-        model.addAttribute("sucursal", new Sucursal());
-        model.addAttribute("ciudades", ciudadRepository.findAll());
-
-        return "sucursalNuevo";
-    }
-
-    @PostMapping("/sucursales/new/save")
-    public String sucursalGuardar(@ModelAttribute Sucursal sucursal, Model model) {
+    // Obtener todas las sucursales
+    @GetMapping
+    public ResponseEntity<List<Sucursal>> getSucursales() {
         try {
-            sucursal.setBodegas(Collections.emptyList());
-            sucursalRepository.save(sucursal);
-            return "redirect:/sucursales";
+            List<Sucursal> sucursales = sucursalRepository.buscarTodasLasSucursales();
+            return ResponseEntity.ok(sucursales);
         } catch (Exception e) {
-            model.addAttribute("error", "Error al crear la sucursal: " + e.getMessage());
-            return "error"; // Nombre de la vista de error
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    @PostMapping("/sucursales/bodegas/delete")
-    public String eliminarBodega(@RequestParam("nombre") String nombreBodega) {
+    // Obtener bodegas sin almacenamiento
+    @GetMapping("/bodegas")
+    public ResponseEntity<List<Document>> getBodegas() {
+        try {
+            List<Document> bodegasDocs = sucursalRepositoryCustom.obtenerBodegas();
+            return ResponseEntity.ok(bodegasDocs);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                .body(Collections.singletonList(new Document("error", e.getMessage())));
+        }
+    }
+
+
+    // Guardar una nueva sucursal
+    @PostMapping("/new/save")
+    public ResponseEntity<String> guardarSucursal(@RequestBody Sucursal sucursal) {
+        try {
+            sucursal.setBodegas(Collections.emptyList());
+            sucursalRepository.save(sucursal);
+            return ResponseEntity.ok("Sucursal creada con éxito");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al crear la sucursal: " + e.getMessage());
+        }
+    }
+
+    // Eliminar una bodega de una sucursal
+    @DeleteMapping("/bodegas/delete")
+    public ResponseEntity<String> eliminarBodega(@RequestParam("nombre") String nombreBodega) {
         try {
             Integer sucursalId = sucursalRepositoryCustom.obtenerIdSucursalPorBodega(nombreBodega);
             if (sucursalId == null) {
                 throw new IllegalArgumentException("No se encontró una sucursal con esa bodega");
             }
-
             sucursalRepository.eliminarBodega(sucursalId, nombreBodega);
-            return "redirect:/sucursales/bodegas";
+            return ResponseEntity.ok("Bodega eliminada con éxito");
         } catch (Exception e) {
-            e.printStackTrace();
-            return "error";
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al eliminar la bodega: " + e.getMessage());
         }
     }
 
-
-
-
+    // Obtener inventario de una sucursal
     @GetMapping("/inventario")
-    public String getInventario(Model model, @RequestParam("idSucursal") int idSucursal) {
-        model.addAttribute("inventario", sucursalRepositoryCustom.obtenerInventarioProductosPorSucursal(idSucursal));
-        return "inventario";
+    public ResponseEntity<List<Document>> getInventario(@RequestParam("idSucursal") int idSucursal) {
+        try {
+            List<Document> inventario = sucursalRepositoryCustom.obtenerInventarioProductosPorSucursal(idSucursal);
+            return ResponseEntity.ok(inventario);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
-    @GetMapping("/sucursales/bodegas/new")
-    public String bodegaForm(Model model) {
-        model.addAttribute("bodega", new Bodega());
-        model.addAttribute("sucursales", sucursalRepository.findAll());
-        return "bodegaNueva";
-    } 
-
-    @PostMapping("/sucursales/bodegas/new/save")
-    public String crearBodega(@ModelAttribute Bodega bodega, @RequestParam("id") int id) {
-        
-        sucursalRepository.insertarBodega(id, bodega.getNombre(), bodega.getTamanio(), bodega.getVolumen(), bodega.getVolumenOcupado());
-        return "redirect:/sucursales/bodegas";
-        
-    } 
+    // Crear una nueva bodega
+    @PostMapping("/bodegas/new/save")
+    public ResponseEntity<String> crearBodega(@RequestBody Bodega bodega, @RequestParam("id") int id) {
+        try {
+            sucursalRepository.insertarBodega(id, bodega.getNombre(), bodega.getTamanio(), bodega.getVolumen(), bodega.getVolumenOcupado());
+            return ResponseEntity.ok("Bodega creada con éxito");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al crear la bodega: " + e.getMessage());
+        }
+    }
 }
