@@ -18,7 +18,7 @@ public class OrdenDeCompraController {
     @Autowired
     private OrdenDeCompraRepository ordenDeCompraRepository;
 
-    @PostMapping("/new/save")
+    @PostMapping("/new")
     public ResponseEntity<String> ordenDeCompraGuardar(
             @RequestParam("id") Integer id,
             @RequestParam("fecha_creacion") Date fecha_creacion,
@@ -61,9 +61,6 @@ public class OrdenDeCompraController {
     public ResponseEntity<OrdenDeCompra> obtenerOrdenDeCompraPorId(@PathVariable int id) {
         try {
             OrdenDeCompra ordenDeCompra = ordenDeCompraRepository.buscarPorId(id);
-            if (ordenDeCompra == null) {
-                return ResponseEntity.noContent().build();
-            }
             return ResponseEntity.ok(ordenDeCompra);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
